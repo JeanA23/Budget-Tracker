@@ -1,23 +1,26 @@
-import { useState } from "react";
-import TransactionList from "./components/TransactionList";
+import TransactionForm from "./components/TransactionForm";
 
 function App() {
-  const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState([]);
 
-  const deleteTransaction = (id) => {
-    setTransactions(transactions.filter(t => t.id !== id));
-  };
+    const addTransaction = (transaction) => {
+        setTransactions([...transactions, transaction]);
+    };
 
-  return (
-    <div>
-      <h1>Budget Tracker</h1>
+    const deleteTransaction = (id) => {
+        setTransactions(transactions.filter(t => t.id !== id));
+    };
 
-      <TransactionList
-        transactions={transactions}
-        onDelete={deleteTransaction}
-      />
-    </div>
-  );
+    return (
+        <div>
+            <h1>Budget Tracker</h1>
+
+            <TransactionForm onAdd={addTransaction} />
+
+            <TransactionList
+                transactions={transactions}
+                onDelete={deleteTransaction}
+            />
+        </div>
+    );
 }
-
-export default App;
